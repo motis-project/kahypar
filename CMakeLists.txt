@@ -16,21 +16,6 @@ include_directories(${PROJECT_SOURCE_DIR})
 find_package(Threads REQUIRED)
 message(STATUS "Found Threads: ${CMAKE_THREAD_LIBS_INIT}")
 
-#ensure that gmock is built before tests are executed
-add_subdirectory(external_tools/googletest EXCLUDE_FROM_ALL)
-include_directories(SYSTEM ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-include_directories(SYSTEM ${gtest_SOURCE_DIR}/../googlemock/include ${gtest_SOURCE_DIR}/../googlemock/)
-
-if(NOT CMAKE_BUILD_TYPE OR 
-  ((NOT CMAKE_BUILD_TYPE STREQUAL "Debug") AND 
-    (NOT CMAKE_BUILD_TYPE STREQUAL "DEBUG") AND 
-    (NOT CMAKE_BUILD_TYPE STREQUAL "Release") AND 
-    (NOT CMAKE_BUILD_TYPE STREQUAL "RELEASE") AND 
-    (NOT CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo") AND
-    (NOT CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")))
-    message(FATAL_ERROR "CMAKE_BUILD_TYPE not set correctly. Options are: Release|RELEASE, Debug|DEBUG, RelWithDebInfo|RELWITHDEBINFO." )
-endif()
-
 # add third-party algorithms to project
 include_directories(external_tools)
 
@@ -346,7 +331,7 @@ message(STATUS "CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
 message(STATUS "CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
 
 
-add_subdirectory(kahypar/application)
+#add_subdirectory(kahypar/application)
 
 if(BUILD_TESTING)
   include(gmock)
@@ -354,7 +339,7 @@ if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 
-add_subdirectory(tools)
+#add_subdirectory(tools)
 add_subdirectory(lib)
 
 if(KAHYPAR_PYTHON_INTERFACE)
